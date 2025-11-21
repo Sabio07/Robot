@@ -1,12 +1,52 @@
 package org.iesalandalus.programacion.robot.modelo;
 
-public record Zona(int ancho, int alto) {
-    public static final ANCHO_MINIMO;
-    public static final ANCHO_MAXIMO;
-    public static final ALTO_MINIMO;
-    public static final ALTO_MAXIMO;
+import java.util.Objects;
 
-    public Zona(int ancho, int alto) {
-        
+public record Zona(int ancho, int alto) {
+    public static final int ANCHO_MINIMO = 10;
+    public static final int ANCHO_MAXIMO = 100;
+    public static final int ALTO_MINIMO = 10;
+    public static final int ALTO_MAXIMO = 100;
+
+    public Zona {
+        validarAncho(ancho);
+        validarAlto(alto);
+    }
+
+    public Zona() {
+        this(ANCHO_MINIMO, ALTO_MINIMO);
+    }
+
+    private int validarAncho(int ancho) {
+        if (ancho < ANCHO_MINIMO || ancho > ANCHO_MAXIMO) {
+            throw new IllegalArgumentException("Ancho no válido.");
+        } else {
+            return ancho;
+        }
+    }
+
+    private int validarAlto(int alto) {
+        if (alto < ALTO_MINIMO || alto > ALTO_MAXIMO) {
+            throw new IllegalArgumentException("Alto no válido.");
+        } else {
+            return alto;
+        }
+    }
+
+    public Coordenada getCentro() {
+        return new Coordenada(ancho/2, alto/2);
+    }
+
+    public boolean pertenece(Coordenada coordenada) {
+        Objects.requireNonNull(coordenada, "La coordenada no puede ser nula.");
+        return perteneceX(coordenada.x()) && perteneceY(coordenada.y());
+    }
+
+    private boolean perteneceX(int x) {
+        return x >= 0 && x < ancho;
+    }
+
+    private boolean perteneceY(int y) {
+        return y >= 0 && y < alto;
     }
 }
