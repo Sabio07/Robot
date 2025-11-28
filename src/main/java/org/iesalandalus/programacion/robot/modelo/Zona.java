@@ -17,19 +17,15 @@ public record Zona(int ancho, int alto) {
         this(ANCHO_MINIMO, ALTO_MINIMO);
     }
 
-    private int validarAncho(int ancho) {
+    private void validarAncho(int ancho) {
         if (ancho < ANCHO_MINIMO || ancho > ANCHO_MAXIMO) {
             throw new IllegalArgumentException("Ancho no válido.");
-        } else {
-            return ancho;
         }
     }
 
-    private int validarAlto(int alto) {
+    private void validarAlto(int alto) {
         if (alto < ALTO_MINIMO || alto > ALTO_MAXIMO) {
             throw new IllegalArgumentException("Alto no válido.");
-        } else {
-            return alto;
         }
     }
 
@@ -43,10 +39,10 @@ public record Zona(int ancho, int alto) {
     }
 
     private boolean perteneceX(int x) {
-        return x >= 0 && x < ancho;
+        return (x >= 0) && (x < ancho);
     }
 
     private boolean perteneceY(int y) {
-        return y >= 0 && y < alto;
+        return (y >= 0) && (y < alto);
     }
 }
